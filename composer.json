@@ -1,0 +1,28 @@
+{
+  "name": "vasya/pg-ballistics",
+  "description": "Ballistics PHP Library (for calculating range cards)",
+  "type": "library",
+  "require": {
+    "vasya/pg-drag": "dev-master",
+    "vasya/pg-conversions": "dev-master",
+    "php": ">=7.3."
+  },
+  "license": "MIT",
+  "keywords": [
+    "ballistics",
+    "php",
+    "pg-ballistics"
+  ],
+  "authors": [
+    {
+      "name": "seniorfulldev",
+      "email": "piaoyilong114@gmail.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "autoload": {
+    "psr-0": {
+      "ballistics": "src/"
+    }
+  }
+}
