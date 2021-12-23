@@ -29,8 +29,7 @@ class Ballistics
             $currentBallisticCoefficient = $this->drag->modifiedBallisticCoefficient($round->bulletBC, $weather->altitudeFeet ?? 0, $weather->temperatureDegreesFahrenheit ?? 59, $weather->barometricPressureInchesHg ?? 29.53, $weather->relativeHumidityPercent ?? 78);
             $zeroRangeYards = $firearm->zeroRangeUnits === 'Yards' ? $firearm->zeroRange : $this->conversions->metersToYards($firearm->zeroRange);
             $muzzleAngleDegrees = $this->drag->muzzleAngleDegreesForZeroRange($round->muzzleVelocityFPS, $zeroRangeYards ?? 100, $firearm->sightHeightInches ?? 1.5, $currentBallisticCoefficient);
-            // Skip the first row
-            $currentRange = $target->chartStepping;
+            $currentRange = 0;
             while ($currentRange <= $target->distance) {
                 $currentRangeMeters = $target->distanceUnits === 'Yards' ? $this->conversions->yardsToMeters($currentRange) : $currentRange;
                 $currentRangeYards = $target->distanceUnits === 'Yards' ? $currentRange : $this->conversions->metersToYards($currentRange);
