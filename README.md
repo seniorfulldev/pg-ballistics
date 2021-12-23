@@ -1,5 +1,9 @@
 # Ballistics Drag Functions PHP Library
 
+## Install
+
+composer require vasya/pg-ballistics
+
 ## Usage
 
 ```php
