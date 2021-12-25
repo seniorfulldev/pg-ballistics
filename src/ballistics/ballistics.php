@@ -18,7 +18,6 @@ class Ballistics
     {
         $this->conversions = new Conversions();
         $this->drag = new Drag();
-
     }
 
     public function getRangeData($weather, $target, $firearm, $round)
@@ -34,7 +33,9 @@ class Ballistics
             while ($currentRange <= $target->distance) {
                 $currentRangeMeters = $target->distanceUnits === 'Yards' ? $this->conversions->yardsToMeters($currentRange) : $currentRange;
                 $currentRangeYards = $target->distanceUnits === 'Yards' ? $currentRange : $this->conversions->metersToYards($currentRange);
-                $currentVelocityFPS = $this->drag->velocityFromRange($currentBallisticCoefficient, $round->muzzleVelocityFPS, $currentRangeYards);
+                $currentVelocityFPS =
+                $this->drag->velocityFromRange($currentBallisticCoefficient, $round->muzzleVelocityFPS, $currentRangeYards) > 0
+                ? $this->drag->velocityFromRange($currentBallisticCoefficient, $round->muzzleVelocityFPS, $currentRangeYards) : 0;
                 $currentEnergyFtLbs = $this->drag->energy($round->bulletWeightGrains, $currentVelocityFPS);
                 $currentTimeSeconds = $this->drag->time($currentBallisticCoefficient, $round->muzzleVelocityFPS, $currentVelocityFPS);
                 $currentDropInches = $this->drag->drop($round->muzzleVelocityFPS, $currentVelocityFPS, $currentTimeSeconds);
@@ -75,5 +76,4 @@ class Ballistics
         }
         return $rangeData;
     }
-
 }
