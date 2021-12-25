@@ -3,7 +3,7 @@
 namespace ballistics;
 
 use conversions\Conversions;
-use drag\Drag;
+use Drag\Drag;
 
 class Ballistics
 {
