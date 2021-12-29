@@ -1,9 +1,9 @@
 <?php
 
-namespace ballistics;
+namespace Ballistics;
 
-use conversions\Conversions;
-use drag\Drag;
+use Conversions\Conversions;
+use Drag\Drag;
 
 class Ballistics
 {
