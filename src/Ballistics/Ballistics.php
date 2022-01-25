@@ -75,37 +75,45 @@ class Ballistics
                     $currentRange += $target->chartStepping;
                 }
             } else {
-                $currentRange = 0;
-                while ($currentRange <= $target->distance) {
-                    $range = array(
-                        'rangeMeters' => 0,
-                        'rangeYards' => 0,
-                        'velocityFPS' => 0,
-                        'energyFtLbs' => 0,
-                        'timeSeconds' => 0,
-                        'dropInches' => 0,
-                        'verticalPositionInches' => 0, // Go negative to reflect how much scope dial up is needed
-                        'crossWindDriftInches' => 0,
-                        'leadInches' => 0,
-                        'slantDegrees' => 0,
-                        'verticalPositionMil' => 0,
-                        'verticalPositionMoA' => 0,
-                        'verticalPositionIPHY' => 0,
-                        'crossWindDriftMil' => 0,
-                        'crossWindDriftMoA' => 0,
-                        'crossWindDriftIPHY' => 0,
-                        'leadMil' => 0,
-                        'leadMoA' => 0,
-                        'leadIPHY' => 0,
-                        'slantDropInches' => 0,
-                        'slantMil' => 0,
-                        'slantMoA' => 0,
-                        'slantIPHY' => 0,
-                    );
-                    $rangeData[] = $range;
-                    $currentRange += $target->chartStepping;
-                }
+                return $this->emptyData($target);
             }
+        } else {
+            return $this->emptyData($target);
+        }
+        return $rangeData;
+    }
+    public function emptyData($target)
+    {
+        $currentRange = 0;
+        $rangeData = [];
+        while ($currentRange <= $target->distance) {
+            $range = array(
+                'rangeMeters' => 0,
+                'rangeYards' => $currentRange,
+                'velocityFPS' => 0,
+                'energyFtLbs' => 0,
+                'timeSeconds' => 0,
+                'dropInches' => 0,
+                'verticalPositionInches' => 0, // Go negative to reflect how much scope dial up is needed
+                'crossWindDriftInches' => 0,
+                'leadInches' => 0,
+                'slantDegrees' => 0,
+                'verticalPositionMil' => 0,
+                'verticalPositionMoA' => 0,
+                'verticalPositionIPHY' => 0,
+                'crossWindDriftMil' => 0,
+                'crossWindDriftMoA' => 0,
+                'crossWindDriftIPHY' => 0,
+                'leadMil' => 0,
+                'leadMoA' => 0,
+                'leadIPHY' => 0,
+                'slantDropInches' => 0,
+                'slantMil' => 0,
+                'slantMoA' => 0,
+                'slantIPHY' => 0,
+            );
+            $rangeData[] = $range;
+            $currentRange += $target->chartStepping;
         }
         return $rangeData;
     }
