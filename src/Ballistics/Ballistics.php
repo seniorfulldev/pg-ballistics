@@ -23,9 +23,15 @@ class Ballistics
     public function getRangeData($weather, $target, $firearm, $round)
     {
         $rangeData = [];
+        if (!$round->bulletBC < 1) {
+            $div = floor(log10($round->bulletBC))+1;
+            $bullet_bc = $round->bulletBC/pow(10, $div);
+        } else {
+            $bullet_bc = $round->bulletBC;
+        }
         if ($weather && $target && $firearm && $round) {
             // Loop through from Range = 0 to the maximum range and display the ballistics table at each chart stepping range.
-            $currentBallisticCoefficient = $this->drag->modifiedBallisticCoefficient($round->bulletBC, $weather->altitudeFeet ?? 0, $weather->temperatureDegreesFahrenheit ?? 59, $weather->barometricPressureInchesHg ?? 29.53, $weather->relativeHumidityPercent ?? 78);
+            $currentBallisticCoefficient = $this->drag->modifiedBallisticCoefficient($bullet_bc, $weather->altitudeFeet ?? 0, $weather->temperatureDegreesFahrenheit ?? 59, $weather->barometricPressureInchesHg ?? 29.53, $weather->relativeHumidityPercent ?? 78);
             $zeroRangeYards = $firearm->zeroRangeUnits === 'Yards' ? $firearm->zeroRange : $this->conversions->metersToYards($firearm->zeroRange);
             if ($round->muzzleVelocityFPS && $round->bulletWeightGrains && $currentBallisticCoefficient) {
 
